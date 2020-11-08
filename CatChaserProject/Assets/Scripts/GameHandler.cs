@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class GameHandler : MonoBehaviour
@@ -8,12 +7,12 @@ public class GameHandler : MonoBehaviour
     public bool gameIsOn = true;
     public GameObject catPrefab;
     public GameObject fish;
-    public int spawnTime = 2;
+    public float spawnTime = 2;
     
     
     void Start()
     {
-        StartCoroutine(SpawnCatsCoroutine(spawnTime));
+        StartCoroutine(SpawnCatsCoroutine());
     }
     
     public void Defeat()
@@ -59,12 +58,12 @@ public class GameHandler : MonoBehaviour
         cat.gameHandler = this;
     }
 
-    private IEnumerator SpawnCatsCoroutine(int waitTime)
+    private IEnumerator SpawnCatsCoroutine()
     {
         while (gameIsOn)
         {
             GenerateCat();
-            yield return new WaitForSeconds(waitTime);         
+            yield return new WaitForSeconds(spawnTime);         
         }
     }
 }
