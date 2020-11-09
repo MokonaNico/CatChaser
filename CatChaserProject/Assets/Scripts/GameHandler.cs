@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameHandler : MonoBehaviour
 {
@@ -8,9 +9,15 @@ public class GameHandler : MonoBehaviour
     public GameObject catPrefab;
     public GameObject fish;
     public float spawnTime = 2;
-    
-    
+    private int score = 0;
+    public Text scoreText;
     void Start()
+    {
+        refreshScoreText();
+        
+    }
+
+    public void StartGame()
     {
         StartCoroutine(SpawnCatsCoroutine());
     }
@@ -65,5 +72,16 @@ public class GameHandler : MonoBehaviour
             GenerateCat();
             yield return new WaitForSeconds(spawnTime);         
         }
+    }
+
+    public void increaseScore(int addScore)
+    {
+        score += addScore;
+        refreshScoreText();
+    }
+
+    private void refreshScoreText()
+    {
+        scoreText.text = "Score: " + score;
     }
 }

@@ -9,6 +9,7 @@ public class Cat : MonoBehaviour
     public float speed = 10;
     public GameObject fish;
     public GameHandler gameHandler;
+    public int value = 10;
 
     private Vector3 startPosition;
     private Vector3 endPosition;
@@ -51,7 +52,12 @@ public class Cat : MonoBehaviour
 
     private void OnMouseDown()
     {
-        clicked = true;
-        Debug.Log("Miaou");
+        if (!clicked && gameHandler.gameIsOn)
+        {
+            clicked = true;
+            gameHandler.increaseScore(value);
+            Debug.Log("Miaou");
+        }
+        
     }
 }
