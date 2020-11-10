@@ -15,14 +15,14 @@ public class Cat : MonoBehaviour
     private Vector3 endPosition;
 
     private bool clicked = false;
-    // Start is called before the first frame update
+
     void Start()
     {
         startPosition = transform.position;
         endPosition = fish.transform.position;
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         if (!gameHandler.gameIsOn)
@@ -37,7 +37,6 @@ public class Cat : MonoBehaviour
 
             else
             {
-                Debug.Log("Noob");
                 gameHandler.Defeat();
             }
         }
@@ -56,7 +55,6 @@ public class Cat : MonoBehaviour
         {
             clicked = true;
             gameHandler.increaseScore(value);
-            Debug.Log("Miaou");
         }
         
     }

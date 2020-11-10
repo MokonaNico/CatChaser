@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameHandler : MonoBehaviour
@@ -8,23 +9,49 @@ public class GameHandler : MonoBehaviour
     public bool gameIsOn = true;
     public GameObject catPrefab;
     public GameObject fish;
-    public float spawnTime = 2;
     private int score = 0;
     public Text scoreText;
+    public GameObject playButton;
+    public GameObject restartButton;
+
+    public float catSpeed = 1f;
+    public float spawnTime = 1f;
+
+    public float increaseSpeed = 0.1f;
+    public float increaseSpawnRate = 0.05f;
+
+    public float timeIncreaseCatSpeed = 5.0f;
+    public float timeIncreaseCatSpawnRate = 5.0f;
+
     void Start()
     {
         refreshScoreText();
+        playButton.GetComponent<Button>().onClick.AddListener(StartGame);
+        playButton.SetActive(true);
         
+        restartButton.GetComponent<Button>().onClick.AddListener(RestartGame);
+        restartButton.SetActive(false);
     }
 
     public void StartGame()
     {
         StartCoroutine(SpawnCatsCoroutine());
+        
+        InvokeRepeating("increaseCatSpeed", timeIncreaseCatSpeed, timeIncreaseCatSpeed);
+        InvokeRepeating("increaseCatSpawnRate", timeIncreaseCatSpawnRate, timeIncreaseCatSpawnRate);
+        
+        playButton.SetActive(false);
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     
     public void Defeat()
     {
         gameIsOn = false;
+        restartButton.SetActive(true);
     }
 
     private Vector3 GetRandomVect()
@@ -62,6 +89,7 @@ public class GameHandler : MonoBehaviour
         GameObject catGameObject = Instantiate(catPrefab, GetRandomVect(),Quaternion.identity);
         Cat cat = catGameObject.GetComponent<Cat>();
         cat.fish = fish;
+        cat.speed = catSpeed;
         cat.gameHandler = this;
     }
 
@@ -78,10 +106,21 @@ public class GameHandler : MonoBehaviour
     {
         score += addScore;
         refreshScoreText();
+
     }
 
     private void refreshScoreText()
     {
         scoreText.text = "Score: " + score;
+    }
+
+    private void increaseCatSpeed()
+    {
+        catSpeed += increaseSpeed;
+    }
+
+    private void increaseCatSpawnRate()
+    {
+        spawnTime -= increaseSpawnRate;
     }
 }
