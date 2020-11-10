@@ -914,17 +914,41 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 471950462}
     - target: {fileID: 5996012322347140049, guid: ef5bfc38187a2044a9eb875c7777d4b0, type: 3}
+      propertyPath: catSpeed
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5996012322347140049, guid: ef5bfc38187a2044a9eb875c7777d4b0, type: 3}
       propertyPath: scoreText
       value: 
       objectReference: {fileID: 620473166}
+    - target: {fileID: 5996012322347140049, guid: ef5bfc38187a2044a9eb875c7777d4b0, type: 3}
+      propertyPath: spawnTime
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5996012322347140049, guid: ef5bfc38187a2044a9eb875c7777d4b0, type: 3}
       propertyPath: playButton
       value: 
       objectReference: {fileID: 67965851}
     - target: {fileID: 5996012322347140049, guid: ef5bfc38187a2044a9eb875c7777d4b0, type: 3}
+      propertyPath: increaseSpeed
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 5996012322347140049, guid: ef5bfc38187a2044a9eb875c7777d4b0, type: 3}
       propertyPath: restartButton
       value: 
       objectReference: {fileID: 726818030}
+    - target: {fileID: 5996012322347140049, guid: ef5bfc38187a2044a9eb875c7777d4b0, type: 3}
+      propertyPath: increaseSpawnRate
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 5996012322347140049, guid: ef5bfc38187a2044a9eb875c7777d4b0, type: 3}
+      propertyPath: timeIncreaseCatSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5996012322347140049, guid: ef5bfc38187a2044a9eb875c7777d4b0, type: 3}
+      propertyPath: timeIncreaseCatSpawnRate
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5996012322347140050, guid: ef5bfc38187a2044a9eb875c7777d4b0, type: 3}
       propertyPath: m_RootOrder
       value: 2
