@@ -72,7 +72,7 @@ public class GameHandler : MonoBehaviour
         string jsonString = "{ \"name\":\"" + playerName + "\", \"score\": " + playerScore + " }";
         Debug.Log(jsonString);
         StringContent content = new StringContent(jsonString, Encoding.UTF8, "application/json");
-        string url = "http://projetinfo.alwaysdata.net/CatChaserAPI/scores";
+        string url = "https://projetinfo.alwaysdata.net/CatChaserAPI/scores";
         HttpResponseMessage response = await client.PostAsync(url, content);
         Debug.Log(response.StatusCode);
         restartButton.SetActive(true);
