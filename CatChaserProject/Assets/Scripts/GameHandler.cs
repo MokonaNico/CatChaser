@@ -1,14 +1,12 @@
 ﻿using System.Collections;
-using System.Net.Http;
 using System.Text;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameHandler : MonoBehaviour
 {
-    
-    private static readonly HttpClient client = new HttpClient();
     
     public bool gameIsOn = true;
     public GameObject catPrefab;
@@ -64,19 +62,42 @@ public class GameHandler : MonoBehaviour
         
     }
 
-    private async void SubmitScore()
+    private void SubmitScore()
     {
         string playerName = scoreInputField.GetComponent<InputField>().text;
         string playerScore = score.ToString();
         Debug.Log(playerName + " " + playerScore);
         string jsonString = "{ \"name\":\"" + playerName + "\", \"score\": " + playerScore + " }";
         Debug.Log(jsonString);
-        StringContent content = new StringContent(jsonString, Encoding.UTF8, "application/json");
         string url = "https://projetinfo.alwaysdata.net/CatChaserAPI/scores";
-        HttpResponseMessage response = await client.PostAsync(url, content);
-        Debug.Log(response.StatusCode);
+
+        StartCoroutine(UploadScore(url, jsonString));
+        
+        //StringContent content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+        //HttpResponseMessage response = await client.PostAsync(url, content);
+        //Debug.Log(response.StatusCode);
+        
         restartButton.SetActive(true);
         scorePanel.SetActive(false);
+    }
+
+    IEnumerator UploadScore(string url, string logindataJsonString)
+    {
+        UnityWebRequest request = new UnityWebRequest (url, "POST");
+        byte[] bodyRaw = Encoding.UTF8.GetBytes(logindataJsonString);
+        request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+        request.downloadHandler = new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+        yield return request.SendWebRequest();
+        if (request.error != null)
+        {
+            Debug.Log("Error: " + request.error);
+        }
+        else
+        {
+            Debug.Log("All OK");
+            Debug.Log("Status Code: " + request.responseCode);
+        }
     }
 
     private Vector3 GetRandomVect()
