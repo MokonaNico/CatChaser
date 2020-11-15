@@ -21,18 +21,18 @@
     </script>
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script>
-
-        $.ajax({
-           type: 'GET',
-           contentType: "application/json; charset=utf-8",
-           crossDomain: true,
-           async:false,
-           dataType: 'jsonp',
-           url: "https://projetinfo.alwaysdata.net/CatChaserAPI/scores/GetQuote?callback=?",
-           success: function(jsondata){
-                console.log(jsondata);
-           }
-        })
+    	const Http = new XMLHttpRequest();
+    	Http.open("GET", "https://projetinfo.alwaysdata.net/CatChaserAPI/scores");
+        Http.send();
+        Http.onreadystatechange=(e)=>{
+    		if(Http.status == 200){
+		      	var data = Http.responseText;
+		      	var jsonData = JSON.parse(data);
+		      	console.log(jsonData);
+		    } else {
+		    	console.log("error : " + Http.status);
+		    }
+		}
     </script>
   </body>
 </html>
