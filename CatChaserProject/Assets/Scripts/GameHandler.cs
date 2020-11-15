@@ -18,7 +18,6 @@ public class GameHandler : MonoBehaviour
     public GameObject scorePanel;
     public GameObject submitScoreButton;
     public GameObject scoreInputField;
-    
 
     public float catSpeed = 1f;
     public float spawnTime = 1f;
