@@ -31,6 +31,7 @@ Http.onreadystatechange=(e)=>{
             }
             tbl.appendChild(tblBody);
             body.appendChild(tbl);
+            tbl.setAttribute("border", "1");
             haveData = true;
         }
     } else {
