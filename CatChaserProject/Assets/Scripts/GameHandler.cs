@@ -19,14 +19,10 @@ public class GameHandler : MonoBehaviour
     public GameObject submitScoreButton;
     public GameObject scoreInputField;
 
-    public float catSpeed = 1f;
+    public float catSpeed = 2f;
     public float spawnTime = 1f;
-
-    public float increaseSpeed = 0.1f;
-    public float increaseSpawnRate = 0.05f;
-
-    public float timeIncreaseCatSpeed = 5.0f;
-    public float timeIncreaseCatSpawnRate = 5.0f;
+    public float difficultyIncreaseTime = 0.1f;
+    private float x = 0;
 
     void Start()
     {
@@ -44,8 +40,7 @@ public class GameHandler : MonoBehaviour
     public void StartGame()
     {
         StartCoroutine(SpawnCatsCoroutine());
-        InvokeRepeating("increaseCatSpeed", timeIncreaseCatSpeed, timeIncreaseCatSpeed);
-        InvokeRepeating("increaseCatSpawnRate", timeIncreaseCatSpawnRate, timeIncreaseCatSpawnRate);
+        InvokeRepeating("increaseDifficulty", 0, difficultyIncreaseTime);
         playButton.SetActive(false);
     }
 
@@ -160,13 +155,11 @@ public class GameHandler : MonoBehaviour
         scoreText.text = "Score: " + score;
     }
 
-    private void increaseCatSpeed()
+    private void increaseDifficulty()
     {
-        catSpeed += increaseSpeed;
+        x += difficultyIncreaseTime;
+        catSpeed = (1 / (1 + Mathf.Exp(-0.03f * x + 2.5f))) * 2.5f + 2;
+        spawnTime = (1 / (1 + Mathf.Exp(-(-0.03f) * x - 3.3f))) * 0.7f + 0.3f;
     }
 
-    private void increaseCatSpawnRate()
-    {
-        spawnTime -= increaseSpawnRate;
-    }
 }

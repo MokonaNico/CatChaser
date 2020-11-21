@@ -1491,7 +1491,7 @@ PrefabInstance:
       objectReference: {fileID: 471950462}
     - target: {fileID: 5996012322347140049, guid: ef5bfc38187a2044a9eb875c7777d4b0, type: 3}
       propertyPath: catSpeed
-      value: 1.2
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5996012322347140049, guid: ef5bfc38187a2044a9eb875c7777d4b0, type: 3}
       propertyPath: scoreText
@@ -1499,7 +1499,7 @@ PrefabInstance:
       objectReference: {fileID: 620473166}
     - target: {fileID: 5996012322347140049, guid: ef5bfc38187a2044a9eb875c7777d4b0, type: 3}
       propertyPath: spawnTime
-      value: 1.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5996012322347140049, guid: ef5bfc38187a2044a9eb875c7777d4b0, type: 3}
       propertyPath: playButton
@@ -1511,7 +1511,7 @@ PrefabInstance:
       objectReference: {fileID: 1617254142}
     - target: {fileID: 5996012322347140049, guid: ef5bfc38187a2044a9eb875c7777d4b0, type: 3}
       propertyPath: increaseSpeed
-      value: 0.07
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5996012322347140049, guid: ef5bfc38187a2044a9eb875c7777d4b0, type: 3}
       propertyPath: restartButton
@@ -1523,7 +1523,7 @@ PrefabInstance:
       objectReference: {fileID: 44586348}
     - target: {fileID: 5996012322347140049, guid: ef5bfc38187a2044a9eb875c7777d4b0, type: 3}
       propertyPath: increaseSpawnRate
-      value: 0.05
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5996012322347140049, guid: ef5bfc38187a2044a9eb875c7777d4b0, type: 3}
       propertyPath: submitScoreButton
@@ -1531,11 +1531,11 @@ PrefabInstance:
       objectReference: {fileID: 969378270}
     - target: {fileID: 5996012322347140049, guid: ef5bfc38187a2044a9eb875c7777d4b0, type: 3}
       propertyPath: timeIncreaseCatSpeed
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5996012322347140049, guid: ef5bfc38187a2044a9eb875c7777d4b0, type: 3}
       propertyPath: timeIncreaseCatSpawnRate
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5996012322347140050, guid: ef5bfc38187a2044a9eb875c7777d4b0, type: 3}
       propertyPath: m_RootOrder
