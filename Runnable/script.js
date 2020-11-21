@@ -10,6 +10,7 @@ Http.onreadystatechange=(e)=>{
             console.log(jsonData);
             var body = document.getElementsByTagName("body")[0];
             var tbl = document.createElement("table");
+            tbl.classList.add("darkTable");
                 var tblBody = document.createElement("tbody");
                 for (var i = 0; i < 20; i++) {
                 var row = document.createElement("tr");
