@@ -58,42 +58,13 @@ public class GameHandler : MonoBehaviour
 
     private void SubmitScore()
     {
+        NetworkHandler networkHandler = new NetworkHandler();
         string playerName = scoreInputField.GetComponent<InputField>().text;
-        string playerScore = score.ToString();
-        Debug.Log(playerName + " " + playerScore);
-        string jsonString = "{ \"name\":\"" + playerName + "\", \"score\": " + playerScore + " }";
-        Debug.Log(jsonString);
-        string url = "https://projetinfo.alwaysdata.net/CatChaserAPI/scores";
-
-        StartCoroutine(UploadScore(url, jsonString));
-        
-        //StringContent content = new StringContent(jsonString, Encoding.UTF8, "application/json");
-        //HttpResponseMessage response = await client.PostAsync(url, content);
-        //Debug.Log(response.StatusCode);
-        
+        StartCoroutine(networkHandler.UploadScore(playerName,score));
         restartButton.SetActive(true);
         scorePanel.SetActive(false);
     }
-
-    IEnumerator UploadScore(string url, string logindataJsonString)
-    {
-        UnityWebRequest request = new UnityWebRequest (url, "POST");
-        byte[] bodyRaw = Encoding.UTF8.GetBytes(logindataJsonString);
-        request.uploadHandler = new UploadHandlerRaw(bodyRaw);
-        request.downloadHandler = new DownloadHandlerBuffer();
-        request.SetRequestHeader("Content-Type", "application/json");
-        yield return request.SendWebRequest();
-        if (request.error != null)
-        {
-            Debug.Log("Error: " + request.error);
-        }
-        else
-        {
-            Debug.Log("All OK");
-            Debug.Log("Status Code: " + request.responseCode);
-        }
-    }
-
+    
     private Vector3 GetRandomVect()
     {
         if (Camera.main == null) return Vector3.zero;
@@ -161,5 +132,4 @@ public class GameHandler : MonoBehaviour
         catSpeed = (1 / (1 + Mathf.Exp(-0.03f * x + 2.5f))) * 2.5f + 2;
         spawnTime = (1 / (1 + Mathf.Exp(-(-0.03f) * x - 3.3f))) * 0.7f + 0.3f;
     }
-
 }
