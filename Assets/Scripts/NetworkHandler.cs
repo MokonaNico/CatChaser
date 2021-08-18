@@ -1,13 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Networking;
 
 public class NetworkHandler
 {
-    private string url = "https://projetinfo.alwaysdata.net/CatChaserAPI/scores";
-    
+    private string url = "mokonanico.alwaysdata.net";
     
     public IEnumerator UploadScore(string playerName, int playerScore)
     {
@@ -25,9 +25,26 @@ public class NetworkHandler
         }
     }
 
+    public IEnumerator GetScore(GameHandler gameHandler)
+    {
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
+        {
+            // Request and wait for the desired page.
+            yield return webRequest.SendWebRequest();
+            if (webRequest.result == UnityWebRequest.Result.Success)
+            {
+                gameHandler.CreateScoreTable(JsonHelper.getJsonArray<Score>(webRequest.downloadHandler.text));
+            } else if (webRequest.error != null)
+            {
+                Debug.Log("Status Code: " + webRequest.responseCode);
+                Debug.Log("Error: " + webRequest.error);
+            }
+        }
+
+    }
+
     private string transformPlayerInfoToJSON(string playerName, int playerScore)
     {
-        string jsonString = "{ \"name\":\"" + playerName + "\", \"score\": " + playerScore.ToString() + " }";
-        return jsonString;
+        return "{ \"name\":\"" + playerName + "\", \"score\": " + playerScore.ToString() + " }";
     }
 }

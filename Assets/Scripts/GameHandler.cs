@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -12,12 +13,17 @@ public class GameHandler : MonoBehaviour
     public GameObject catPrefab;
     public GameObject fish;
     private int score;
-    public Text scoreText;
+    public GameObject scoreText;
     public GameObject playButton;
-    public GameObject restartButton;
+    public GameObject scoreButton;
+    public GameObject backButton;
     public GameObject scorePanel;
     public GameObject submitScoreButton;
     public GameObject scoreInputField;
+
+    public GameObject canvas;
+
+    public GameObject scoreRowPrefab;
 
     public float catSpeed = 2f;
     public float spawnTime = 1f;
@@ -30,11 +36,14 @@ public class GameHandler : MonoBehaviour
         playButton.GetComponent<Button>().onClick.AddListener(StartGame);
         playButton.SetActive(true);
         
+        scoreButton.GetComponent<Button>().onClick.AddListener(ShowScore);
+        scoreButton.SetActive(true);
+        
         scorePanel.SetActive(false);
         submitScoreButton.GetComponent<Button>().onClick.AddListener(SubmitScore);
         
-        restartButton.GetComponent<Button>().onClick.AddListener(RestartGame);
-        restartButton.SetActive(false);
+        backButton.GetComponent<Button>().onClick.AddListener(RestartGame);
+        backButton.SetActive(false);
     }
 
     public void StartGame()
@@ -42,6 +51,34 @@ public class GameHandler : MonoBehaviour
         StartCoroutine(SpawnCatsCoroutine());
         InvokeRepeating("increaseDifficulty", 0, difficultyIncreaseTime);
         playButton.SetActive(false);
+        scoreButton.SetActive(false);
+        scoreText.SetActive(true);
+
+    }
+
+    public void ShowScore()
+    {
+        playButton.SetActive(false);
+        backButton.SetActive(true);
+        scoreButton.SetActive(false);
+        
+        NetworkHandler networkHandler = new NetworkHandler();
+        StartCoroutine(networkHandler.GetScore(this));
+    }
+
+    public void CreateScoreTable(Score[] scores)
+    {
+        int i = Screen.height - 50;
+        foreach (Score score in scores)
+        {
+            GameObject instantiate = Instantiate(scoreRowPrefab, new Vector3(Screen.width/2,i,0), Quaternion.identity);
+            instantiate.transform.SetParent(canvas.transform);
+            ScoreRowHandler srh = instantiate.GetComponent<ScoreRowHandler>();
+            srh.SetName(score.name);
+            srh.SetScore(score.score.ToString());
+            i -= 50;
+        }
+
     }
 
     public void RestartGame()
@@ -61,7 +98,7 @@ public class GameHandler : MonoBehaviour
         NetworkHandler networkHandler = new NetworkHandler();
         string playerName = scoreInputField.GetComponent<InputField>().text;
         StartCoroutine(networkHandler.UploadScore(playerName,score));
-        restartButton.SetActive(true);
+        backButton.SetActive(true);
         scorePanel.SetActive(false);
     }
     
@@ -123,7 +160,7 @@ public class GameHandler : MonoBehaviour
 
     private void refreshScoreText()
     {
-        scoreText.text = "Score: " + score;
+        scoreText.GetComponent<Text>().text = "Score: " + score;
     }
 
     private void increaseDifficulty()
